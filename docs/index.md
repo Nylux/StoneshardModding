@@ -22,3 +22,12 @@ Looking to **contribute** ? Contact one of the maintainers about it on **Discord
 
 - Nylux (`Nylux#6667`)
 - ...
+
+---
+
+## Links
+
+- [Discord](https://discord.gg/YxfRKYUuht)
+- [Github](https://github.com/Nylux/StoneshardModding)
+
+---
