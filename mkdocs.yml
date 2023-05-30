@@ -1,0 +1,19 @@
+site_name: Stoneshard Modding Documentation
+theme: readthedocs
+markdown_extensions:
+  - attr_list
+
+nav:
+  - Index:
+      - "Summary": "index.md"
+  - Tools:
+      - "UndertaleModTool": "tools/undertalemodtool.md"
+      - "HGPatcher": "tools/hgpatcher.md"
+      - "GML to CSV Converter": "tools/gmltocsv.md"
+      - "DeltaPatcher": "tools/deltapatcher.md"
+  - Guides:
+      - "Adding new Sprites": "guides/adding-new-sprites.md"
+      - "Tables": "guides/tables.md"
+  - References:
+      - "Useful Functions": "references/useful-functions.md"
+      - "Events": "references/events.md"
