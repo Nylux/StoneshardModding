@@ -16,6 +16,8 @@ This tool fixes this by converting them to the **.csv** format, which is commonl
 
 You can grab the **GML to CSV Converter** from the [Stoneshard Mod Hub Discord](https://discord.gg/YxfRKYUuht) or [here](../downloads/CSV_GML_Converter.zip){:download}.
 
+Make sure you have installed the **[.Net Core 3.1](https://dotnet.microsoft.com/en-us/download/dotnet/3.1)** as this is a **requirement** for the **GML to CSV Converter** to work.
+
 ## Usage
 
 ---
