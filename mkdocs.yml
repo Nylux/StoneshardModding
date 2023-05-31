@@ -1,4 +1,5 @@
 site_name: Stoneshard Modding Documentation
+repo_url: https://github.com/Nylux/StoneshardModding
 theme: readthedocs
 markdown_extensions:
   - attr_list
@@ -17,3 +18,4 @@ nav:
   - References:
       - "Useful Functions": "references/useful-functions.md"
       - "Events": "references/events.md"
+      - "Tables": "references/tables.md"
