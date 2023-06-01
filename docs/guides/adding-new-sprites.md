@@ -1,5 +1,8 @@
 # Adding New Sprites
 
+!!! Warning
+    This article is planned to be rewritten soon. Stay tuned.
+
 In Stoneshard, sprites aren't simply imported as png files, but as spritesheets in an "**Embedded Texture**" which is then cut into multiple "**Page Items**", and turned into actual "**Sprites**".
 
 ---

@@ -1,10 +1,10 @@
 # Events
 
 ### Disclaimer
+!!! Info
+    This page shouldn't really be in this documentation as it's more about Gamemaker Studio than it is about Stoneshard Modding, but since it's fundamental knowledge to mod the game, it will stay for now.
 
-This page shouldn't really be in this documentation as it's more about Gamemaker Studio than it is about Stoneshard Modding, but since it's fundamental knowledge to mod the game, it will stay for now.
-
-I will write a proper article when I've got the time for it.
+    I will write a proper article when I've got the time for it.
 
 ---
 

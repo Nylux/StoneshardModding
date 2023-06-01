@@ -7,7 +7,8 @@ Functions that are [built into Gamemaker Studio](https://manual-en.yoyogames.com
 
 This will **eventually get sorted** into something more useful/readable, but for now, this will do.
 
-Please **test functions thoroughly and make sure you understand what they do** before adding them to the documentation.
+!!! Info
+	Please **test functions thoroughly and make sure you understand what they do** before adding them to the documentation.
 
 ---
 
