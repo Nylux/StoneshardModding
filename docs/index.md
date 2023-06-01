@@ -1,6 +1,7 @@
 # Unofficial Stoneshard Modding Documentation
 
 Welcome to the **Unofficial Stoneshard Modding Documentation** !  
+
 This documentation is **written and updated by the community** in the interest of **pooling knowledge** to create **better mods, faster**.  
 Keep in mind this is a very **early version** of the documentation, **it very likely will contain errors and/or inaccuracies**, and **will change considerably** in the future.
 

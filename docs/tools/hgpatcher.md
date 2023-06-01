@@ -18,7 +18,9 @@ You can check out the guide `Cuistre#5656` made about HGPatcher [here](https://d
 
 ---
 
-You can grab the latest version of HGPatcher from the [Stoneshard Mod Hub Discord](https://discord.gg/YxfRKYUuht) or [here](../downloads/HGPatcher.zip){:download}, in which he explains some of the issues with it.
+You can grab the latest version of HGPatcher from the [Stoneshard Mod Hub Discord :fontawesome-brands-discord:](https://discord.gg/YxfRKYUuht) or below.
+
+[HGPatcher :octicons-download-16:](../downloads/HGPatcher.zip){ .md-button .md-button--primary}
 
 ## Usage
 
@@ -36,10 +38,12 @@ Using HGPatcher's scripts is pretty straightforward :
 
 ---
 
-WIP. Come back later !
+!!! info "WIP"
+    Come back later !
 
 ## Screenshots
 
 ---
 
-WIP. Come back later !
+!!! info "WIP"
+    Come back later !

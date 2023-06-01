@@ -15,9 +15,12 @@ We use UndertaleModTool to open and edit the **data.win** file, which contains a
 
 ---
 
-You can find the [latest version of UMT over on Github](https://github.com/krzys-h/UndertaleModTool/releases).  
-It's recommended to grab the latest Bleeding Edge release for your operating system, as development
+You can find the latest version of UMT over on Github.
+
+It's recommended to grab the latest ==***Bleeding Edge***== release for your operating system, as development
 is fairly active and developers are fixing issues often.
+
+[UndertaleModTool Github :octicons-link-external-16:](https://github.com/krzys-h/UndertaleModTool/releases){ .md-button .md-button--primary}
 
 ## Usage
 
@@ -35,10 +38,12 @@ Once found, simply double click on it to open it with UndertaleModTool.
 
 ---
 
-WIP. Come back later !
+!!! info "WIP"
+    Come back later !
 
 ## Screenshots
 
 ---
 
-WIP. Come back later !
+!!! info "WIP"
+    Come back later !

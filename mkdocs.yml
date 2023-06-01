@@ -1,12 +1,81 @@
 site_name: Stoneshard Modding Documentation
 repo_url: https://github.com/Nylux/StoneshardModding
-theme: readthedocs
+repo_name: Nylux/StoneshardModding
+edit_uri: edit/master/docs/
+copyright: All rights belong to Ink Stains Games. <br> This is a community
+  project and is not affiliated with Ink Stains Games.
+
+
+
+theme:
+    name: material
+    favicon: img/Stoneshard.ico
+    features: 
+    - navigation.path
+    - navigation.top
+    - header.autohide
+    - toc.integrate
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.tabs.link
+    - content.code.annotation
+    - content.code.copy
+    - content.action.edit
+    - content.action.view
+    language: en
+    palette:
+        - scheme: default
+          toggle:
+            icon: material/brightness-7
+            name: Switch to Dark Mode
+        - scheme: slate
+          toggle:
+            icon: material/brightness-4
+            name: Switch to Light Mode
+
+
 markdown_extensions:
   - attr_list
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde
+
+
+plugins:
+    - search
+    - table-reader
+
+
+extra:
+  social:
+    - icon: fontawesome/brands/discord 
+      link: https://discord.gg/YxfRKYUuht
+      name: Stoneshard Mod Hub Discord
+    - icon: fontawesome/brands/github
+      link: https://github.com/Nylux/StoneshardModding
+      name: GitHub Repository
+    - icon: fontawesome/brands/steam
+      link: https://store.steampowered.com/app/625960/Stoneshard/
+      name: Stoneshard on Steam
 
 nav:
   - Index:
-      - "Summary": "index.md"
+      - "Welcome": "index.md"
   - Tools:
       - "UndertaleModTool": "tools/undertalemodtool.md"
       - "HGPatcher": "tools/hgpatcher.md"
@@ -14,7 +83,7 @@ nav:
       - "DeltaPatcher": "tools/deltapatcher.md"
   - Guides:
       - "Adding new Sprites": "guides/adding-new-sprites.md"
-      - "Tables": "guides/tables.md"
+      - "Working with Tables": "guides/working-with-tables.md"
   - References:
       - "Useful Functions": "references/useful-functions.md"
       - "Events": "references/events.md"
