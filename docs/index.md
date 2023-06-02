@@ -28,7 +28,7 @@ Looking to **contribute** ? Contact one of the maintainers about it on **Discord
 
 ## Links
 
-- [Discord](https://discord.gg/YxfRKYUuht)
-- [Github](https://github.com/Nylux/StoneshardModding)
+- [Discord :fontawesome-brands-discord:](https://discord.gg/YxfRKYUuht)
+- [Github :material-github:](https://github.com/Nylux/StoneshardModding)
 
 ---
