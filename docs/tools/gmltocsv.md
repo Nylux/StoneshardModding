@@ -16,7 +16,7 @@ This tool fixes this by converting them to the [**.csv** format](https://simple.
 
 You can grab the **GML to CSV Converter** from the [Stoneshard Mod Hub :fontawesome-brands-discord:](https://discord.gg/YxfRKYUuht) or below.
 
-Make sure you have installed the **.Net Core 3.1** as this is a **requirement** for the **GML to CSV Converter** to work.
+Make sure you have installed the **.Net Core 3.1** as this is a **requirement** for the **GML to CSV Converter** to work. There is a known issue with **.Net Core 3.1** where the required library **hostfxr.dll** could not be found. If you run into that issue, check if you installed the correct version (usually the **x64** one).
 </br></br>
 
 [.Net Core 3.1 :octicons-link-external-16:](https://dotnet.microsoft.com/en-us/download/dotnet/3.1){ .md-button .md-button--primary}&emsp;
