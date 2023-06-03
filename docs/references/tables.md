@@ -156,7 +156,7 @@ For the tool used to convert tables into [.csv files](https://simple.wikipedia.o
 
     | Type | Name | Description |
     |-|-|-|
-    | `String` |  | The skill's name. Not to be confused with the skill's in-game name. </br>Note: Devs left this field unnamed for some reason...|
+    | `String` |  | The skill's ID. Not to be confused with the skill's in-game name. </br>Note: Devs left this field unnamed for some reason...|
     | `String` | **Object** | The gameobject associated with this skill. |
     | `String` | **Target** | The targetting method for this skill.  </br> Possible values : `No Target`, `Target Object`, `Target Point`, `Target Area`. |
     | `Integer` | **Range** | The range this skill can be used at. </br> Special values : `0` for no range, `range` to use the weapon's range, `vis` to use the vision attribute. |
@@ -171,7 +171,7 @@ For the tool used to convert tables into [.csv files](https://simple.wikipedia.o
     | `String` | **Class** | The class for this skill. </br> Possible values : `skill`, `spell`, `attack`|
     | `Integer` | **Bonus_Range** | The bonus range added when using this skill. &nbsp; :warning: |
     | `String` | **Starcast** | The sprite used when this skill is used. </br> Note : The sprite name seems to be followed by an underscore (_). &nbsp; :warning: |
-    | `String` | **Branch** | The skill tree this tree belong to. `none` if it belongs to none. |
+    | `String` | **Branch** | The skill tree this skill belongs to. `none` if it belongs to none. |
     | `Integer` | **is_knockback** | Whether or not this skill causes knockback. |
     | `Integer` | **Crime** | Whether or not using this skill around friendly NPCs is considered a crime. &nbsp; :warning:|
     | `String` | **metacategory** | The metacategory this skill belongs to. Possible values : `weapon`. |
