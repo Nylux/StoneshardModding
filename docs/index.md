@@ -21,7 +21,8 @@ Looking to **contribute** ? Contact one of the maintainers about it on **Discord
 
 ## Contributors
 
-- Nylux (`Nylux#6667`)
+- Nylux (`Nylux#6667` :fontawesome-brands-discord:)
+- remyCases ([Github](https://github.com/remyCases))
 - ...
 
 ---

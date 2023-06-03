@@ -1,0 +1,2 @@
+;Object;Target;Range;KD;MP;Reserv;Duration;AOE_Lenght;AOE_Width;is_movement;Pattern;Class;Bonus_Range;Starcast;Branch;is_knockback;Crime;metacategory;FMB;AP;Attack;Stance;Charge;Maneuver;Spell
+Taking_Aim;o_b_taking_aim;No Target;0;1;4;0;1;0;0;0;normal;skill;0;;ranged;0;;weapon;0;0;;;;1;
