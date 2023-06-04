@@ -18,5 +18,5 @@ jobs:
         with:
           key: ${{ github.ref }}
           path: .cache
-      - run: pip install mkdocs-material mkdocs-table-reader-plugin
+      - run: pip install mkdocs-material mkdocs-table-reader-plugin mkdocs-glightbox
       - run: mkdocs gh-deploy --force
