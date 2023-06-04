@@ -161,8 +161,65 @@ By **spawning one** out of thin air, *obviously*.
 
     **Save** your **.win file**, load up your save, hit ++f4++ and you should get a shiny new **backpack**, which only takes `2x3` **cells** in your inventory.
 
+!!! warning "Reminder"
+    If you intend to **share** this mod, don't forget to **remove the code we added in this section** before creating your **.xdelta file**.  
+    If you don't, **anyone will be able to spawn backpacks** with the ++f4++ key !
+
 ---
 ## Changing the capacity
 
-!!! info "WIP"
-    Come back later !
+Now that we have a backpack we can **spawn** and that takes `2x3` **cells** in the inventory, let's see how to make it even better by **holding more space**.
+
+??? abstract "1. Changing the UI"
+    In theory, we could make an **entirely new texture** or expand an **existing one**.  
+    But for the sake of **simplicity** and to **save some time**, we can just reuse an **existing asset** as is.
+
+    We're going to reuse `s_container`, which is the **sprite** used for **chests**, **wardrobes** (etc.).  
+    ??? note "Screenshot - Container Sprite"
+        ![CONTAINER_SPRITE](../img/screenshots/bigger-backpack-sprite0.png "Container Sprite")
+
+    ---
+
+    First, let's find `o_container_backpack` and open it.  
+    Now, we're going to change its sprite from `s_container_backpack` to `s_container`.  
+    To do this, simply search for `s_container` in UML and drag it over the current one.
+    ??? note "Screenshot - Changing the Sprite"
+        ![UMT_POSITION](../img/screenshots/bigger-backpack-uml5.png "Changing the Sprite in `o_container_backpack`")
+
+??? abstract "2. Adjusting the Code"
+    Unlike **inventory items**, the capacity of **containers** (chests, wardrobes, backpacks...) is defined in the **code** and not simply based on the **sprite's size**.
+
+    If we take a quick look at `o_backpack_container`, the only **script** it seems to have is `gml_Object_o_container_backpack_Other_10`.  
+    Let's open it by **middle mouse clicking** or **double clicking** it.
+
+    We're going to replace the existing code with **our own** :
+
+    ```title="gml_Object_o_container_backpack_Other_10" linenums="1" hl_lines="2 5 9 10"
+    event_inherited()
+    closeButton = scr_adaptiveCloseButtonCreate(id, (depth - 1), 229, 3)
+    with (closeButton)
+	    drawHover = 1
+    getbutton = scr_adaptiveTakeAllButtonCreate(id, (depth - 1), 230, 27)
+    with (getbutton)
+	    owner = other.id
+    cellsContainer = scr_guiCreate(id, o_guiContainer, depth, adaptiveOffsetX, adaptiveOffsetY)
+    cellsRowSize = 7
+    scr_inventory_add_cells(id, cellsContainer, cellsRowSize, 5, true)
+    ```
+    ???+ Question "What does this code do ?"
+        This code is responsible for creating the **GUI element** when the backpack is **interacted** with.
+        
+        We first changed the **positioning** of the `Close` and `Take all` **buttons** to match our **new sprite**.  
+        Then we changed the **values** for how many **cells** this container now holds.
+    
+    ---
+
+    As usual, now we **save** our **.win** file and **test** our changes.  
+    Your backpack should now use the **container sprite** instead of its usual one and it should have `7x5` **cells** to store your items in.
+
+    !!! Tip
+        If you had items in your backpack beforehand, it's possible they now **overlap** each other.  
+        You can fix this by **taking them out** of your backpack and **picking them up** again.
+    
+## Distributing your mod
+See [Creating Mods](../tools/deltapatcher.md#creating-mods) in the [DeltaPatcher](../tools/deltapatcher.md) article.
