@@ -26,6 +26,7 @@ Looking to **contribute** ? Contact one of the maintainers about it on **Discord
 |-|:-:|:-|
 | Nylux | :white_check_mark: | `Nylux#6667` :fontawesome-brands-discord: |
 | remyCases | :x: | [remyCases :material-github:](https://github.com/remyCases) |
+| ...| ...| ...|
 
 ---
 
