@@ -12,7 +12,7 @@
 
 In this article we're going to take the very limited backpacks of the game and make them a bit more convenient to use, first by changing their size in the inventory and then by changing their capacity.
 
-This guide is a bit more advanced than the exemple in [Getting Started](./getting-started.md), so make sure to read thoroughly.
+This guide is a bit more advanced than the example in [Getting Started](./getting-started.md), so make sure to read thoroughly.
 
 ---
 
@@ -57,9 +57,9 @@ Since we're trying to modify the backpack **in the inventory**, we know that the
     
     Here are some **good** examples :
 
-    - :white_check_mark: A sprite which is `27x27` pixels will be `1 cell wide` and `1 cell tall`. (*Exemple* : `s_inv_coal`)
-    - :white_check_mark: A sprite which is `54x27` pixels will be `2 cells wide` and `1 cell tall`. (*Exemple* : `s_inv_clay_plate`)
-    - :white_check_mark: A sprite which is `27x81` pixels will be `1 cell wide` and `3 cells tall`. (*Exemple* : `s_inv_footmanaxe`)
+    - :white_check_mark: A sprite which is `27x27` pixels will be `1 cell wide` and `1 cell tall`. (*Example* : `s_inv_coal`)
+    - :white_check_mark: A sprite which is `54x27` pixels will be `2 cells wide` and `1 cell tall`. (*Example* : `s_inv_clay_plate`)
+    - :white_check_mark: A sprite which is `27x81` pixels will be `1 cell wide` and `3 cells tall`. (*Example* : `s_inv_footmanaxe`)
 
     Here is a **bad** example :
 
