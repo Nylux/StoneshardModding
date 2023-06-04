@@ -92,7 +92,7 @@ Since we're trying to modify the backpack **in the inventory**, we know that the
     That's absolutely **correct**, but it's close !  
     If we were to try to use **multiples of 27** to make it fit in the inventory cells, the closest we could get would be `54x81` **pixels**, which would mean `2x3` **cells** in the inventory, so let's try to go for that.
 
-    The reason why the sprite itself is not using **multiples of 27** is fine is because it's using **padding** to reach them !  
+    The reason why the sprite itself not using **multiples of 27** is fine is because it's using **padding** to reach them !  
     In the **next section** we'll see how to **get rid of some of that padding** to get our desired `54x81` pixels sprite.
 
 ??? abstract "Changing the Size - Part 2"
@@ -100,6 +100,9 @@ Since we're trying to modify the backpack **in the inventory**, we know that the
     We'll also reduce the margins to `1`, `53`, `80` and `1`.
     ??? note "Screenshot - Editing Size and Margins in `s_inv_travellersbackpack`"
         ![UMT_MARGIN](../img/screenshots/bigger-backpack-uml2.png "Editing Size and Margins in `s_inv_travellersbackpack`")
+
+    ---
+
     Now let's **middle mouse click** on `PageItem 2333 (UndertaleTexturePageItem)`.  
     (Alternatively, you can also **double click** it or even **click** the `...` **button** on the right.)
 
@@ -152,7 +155,7 @@ By **spawning one** out of thin air, *obviously*.
 
     ???+ question "What's that command ? How does it work ?"
         Check the [Useful Functions](../references/useful-functions.md) article to learn more.  
-        Alternatively, you can middle mouse click it to check out its code !
+        Alternatively, you can **middle mouse click** it to check out its code !
 
     ---
 
