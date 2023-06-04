@@ -1,5 +1,9 @@
 # Working with Tables
 
+:octicons-tag-24: **0.8.1.9**
+
+## Description
+
 Item **properties** and **descriptions** aren't defined on gameobjects themselves but in **tables** that both look and work similarly to the [CSV format](https://simple.wikipedia.org/wiki/Comma-separated_values).
 
 Tables usually begin with `gml_globalscript_table` in their name and are located in the "**CODE**" block.

@@ -86,6 +86,7 @@ nav:
       - "DeltaPatcher": "tools/deltapatcher.md"
   - Guides:
       - "Getting Started": "guides/getting-started.md"
+      - "Bigger Backpacks": "guides/bigger-backpacks.md"
       - "Adding new Sprites": "guides/adding-new-sprites.md"
       - "Working with Tables": "guides/working-with-tables.md"
   - References:

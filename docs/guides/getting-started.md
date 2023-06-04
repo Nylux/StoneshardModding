@@ -1,5 +1,7 @@
 # Getting Started
 
+:octicons-tag-24: **0.8.1.9**
+
 ## Setting up your Environment
 
 In order to make mods for Stoneshard you don't need much.  
