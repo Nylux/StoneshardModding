@@ -221,5 +221,7 @@ Now that we have a backpack we can **spawn** and that takes `2x3` **cells** in t
         If you had items in your backpack beforehand, it's possible they now **overlap** each other.  
         You can fix this by **taking them out** of your backpack and **picking them up** again.
     
+---
+
 ## Distributing your mod
 See [Creating Mods](../tools/deltapatcher.md#creating-mods) in the [DeltaPatcher](../tools/deltapatcher.md) article.

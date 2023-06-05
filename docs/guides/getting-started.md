@@ -4,11 +4,11 @@
 
 ## Setting up your Environment
 
-In order to make mods for Stoneshard you don't need much.  
-There is only a few tools to use and a single file to edit.
+In order to make **mods** for Stoneshard you don't need much.  
+There is only a **few tools** to use and a **single file** to edit.
 
-However, it's a good idea to stay organized.  
-This will help make sure your time is spent working on your mod and not wasted trying to figure out which one of your data.win was the 0.8.0.27 version.
+However, it's a good idea to stay **organized**.  
+This will help make sure your time is spent **working on your mod** and not **wasted** trying to figure out which one of your data.win was the 0.8.0.27 version.
 
 ??? abstract "1. Locating your game folder"
     First we're going to find our game folder.  
@@ -30,13 +30,13 @@ This will help make sure your time is spent working on your mod and not wasted t
     data.win -> vanilla.win
     ```
     ??? Question "Why renaming instead of making a backup ?"
-        The reason why we **rename** the data.win to vanilla.win instead of **making a backup** like data2.win is pretty simple:
+        The reason why we **rename** the data.win to vanilla.win instead of **making a backup** like `data2.win` is pretty simple:
 
         When the game starts, it looks **specifically** for a file called `data.win`.  
         If none is found, it will ^^**open a window to let you select what .win file to load up**^^.
 
-        This is a huge time saver and avoids having to rename your modded file to data.win.  
-        It's especially convenient when working on multiple mods at once.
+        This is a huge **time saver** and avoids having to **rename** your modded file to data.win.  
+        It's especially **convenient** when working on **multiple mods** at once.
 
 ??? abstract "3. Installing the tools"
     Now that we've made a "backup" of our data.win file, it's time to install the **tools** we'll need to mod the game.
@@ -45,7 +45,7 @@ This will help make sure your time is spent working on your mod and not wasted t
     This is the folder where you will keep all your tools.
 
     Once that is done, check out the **Tools** section of the documentation for a list of tools and their download instructions.  
-    The only **required** tools are [UndertaleModTool](../tools/undertalemodtool.md) and [DeltaPatcher](../tools/deltapatcher.md), the rest is only useful for specific scenarios.
+    The only **required** tools are [UndertaleModTool](../tools/undertalemodtool.md) and [DeltaPatcher](../tools/deltapatcher.md), the rest is only useful for **specific scenarios**.
 
     For reference here is my folder structure :
 
@@ -138,6 +138,7 @@ For your first mod we're going to add a quicksave feature to the game when you p
         If something went wrong or this doesn't work, make sure to check the previous sections for mistakes.  
         If it still doesn't work, feel free to message any of the [maintainers](../index.md#contributors) on [Discord :fontawesome-brands-discord:](https://discord.gg/YxfRKYUuht) about it.
     
+---
 
 ## Distributing your mod
 
