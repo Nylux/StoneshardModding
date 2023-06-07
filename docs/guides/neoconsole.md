@@ -23,14 +23,8 @@ NeoConsole is an **ongoing project** that is attempting to create a new **develo
 
 The project is still at a **very early stage**, and the current goal is to get a **barebone console up and running** without having to alter the game's behaviour in any way.
 
-!!! Warning "Disclaimer"
-    As of now, you can set up **NeoConsole** and it will **somewhat work**, but this is achieved either **^^destructively^^** or in a non **standalone** way.  
-    What this means is that adding **NeoConsole** to your game right now will either ^^**cause certain systems or elements of the game to misbehave or not work**^^ or simply **not be future-proof**, depending on what you choose.
-
-    ---
-
-    The current state of **NeoConsole** is a **barebone console** with absolutely **no useful script to run** as well as **various issues**.  
-    If you expect **feature parity** with the original console, you will be **disapointed**.
+The current state of **NeoConsole** is a **barebone console** with absolutely **no useful script to run** as well as **various issues**.  
+If you expect **feature parity** with the original console, you will be **disapointed**.
 
 ---
 
@@ -303,6 +297,10 @@ In the long run, I'd like to introduce a **UMT script** to do all this delicate 
         - It does this by **inverting** the value of the **global variable** `neoconsole_enabled`.
         - It's run when the **key** defined in `o_neoconsole` **Create Event** is **pressed**.
 
+??? Info "Reminder - commandsMap"
+    If you added any **non-standard script**, make sure to also add them to the **commandsMap** in `o_neoconsole` **Create Event** !  
+    Otherwise, they won't be **accessible** through the console.
+
 ---
 
 ### **Logic & Rendering**
@@ -460,7 +458,7 @@ In the long run, I'd like to introduce a **UMT script** to do all this delicate 
         3. Draws the text and handles text-wrapping.
 ---
 
-### **Input Isolation (WIP)**
+### **Input Isolation**
 
 Now that we have a **working console**, if you hop in-game right now, you will notice **something annoying** happening when you **type** into the console :
 
@@ -481,11 +479,6 @@ This is because the game checks only if the **original console** is **opened or 
     They have **already started doing this** by removing all the **scripts** (*godmode*, *enemyinfo*, *teleport*...), and it's only a **matter of time** before they remove the rest of the **original console** including, you guessed it, the **global variable** we want to **hijack**.
 
     The day this happens, **NeoConsole** will also **stop working** if we don't do anything about it.
-    
-    ---
-
-    That's why I'm currently working on a proper, **standalone solution**, but it will probably require **editing the bytecode** (assembly) rather than the **decompiled gml**.  
-    If you're **comfortable with Gamemaker's bytecode** or if you **know of a way to fix this problem**, message me on [Discord :fontawesome-brands-discord:](https://discord.gg/YxfRKYUuht) (***Nylux#6667***)
 
 ??? abstract "Method 1 - Easy Fix (Not future-proof)"
     Open the `scr_neoconsole_enable` script we created earlier, and add the following **highlighted code** to it :
@@ -504,18 +497,19 @@ This is because the game checks only if the **original console** is **opened or 
 
     This will **hijack** and **toggle** the **original console's global variable** and prevent opening your inventory and such when your console is **open**.
 
-??? abstract "Method 2 - Broken Fix (Standalone & future-proof)"
+??? abstract "Method 2 - Harder Fix (Standalone & future-proof)"
     We are going to be **replacing** the places in the game where it checks if the **original console** is **opened** to check if **our console is opened** instead.  
 
     The **problem** with this approach is that some of these **scripts** will simply **^^not compile back when edited^^**.  
-    The only way to **force it to compile** is by **removing** some specific lines of code, which you can guess can **cause issues**.
+    The only way to **force it to compile** is by editing the **bytecode (assembly)** instead of the **decompiled code**.
 
-    This is due to a **limitation** with **UMT**, and we are currently **looking for solutions**.
+    This is due to a **limitation** with **UMT**.   
+    As it's using an **outdated compiler**, it cannot recognize some **newer features of GML** and won't be able to compile.
 
     ---
 
     In the **following scripts**,  
-    replace `if (!global.consoleEnabled)` with `if (!global.consoleEnabled && !global.neoconsole_enabled)` :
+    Replace `if (!global.consoleEnabled)` with `if (!global.consoleEnabled && !global.neoconsole_enabled)` :
 
     - *gml_GlobalScript_scr_is_pressed_key*
     - *gml_GlobalScript_scr_is_key*
@@ -526,36 +520,107 @@ This is because the game checks only if the **original console** is **opened or 
 
     ---
 
-    In the **following scripts**,  
-    replace `if ((!global.consoleEnabled) && (!pressed))` with `if ((!global.consoleEnabled) && (!global.neoconsole_enabled) && (!pressed))` :
+    In **gml_Object_o_music_button_Step_1** :
 
-    - *gml_Object_o_music_button_Step_1*
+    - Replace `if ((!global.consoleEnabled) && (!pressed))`
+    - With `if ((!global.consoleEnabled) && (!global.neoconsole_enabled) && (!pressed))`
 
     ---
 
-    In the **following scripts**,  
-    replace `if global.consoleEnabled` with `if global.consoleEnabled || global.neoconsole_enabled`
+    In the **gml_Object_o_inv_switch_Other_10**,  
     
-    - *gml_Object_o_inv_switch_Other_10*
+    - Replace `if global.consoleEnabled`
+    - With `if global.consoleEnabled || global.neoconsole_enabled`
 
     ---
 
-    Now come the **2 annoying scripts** that will **require you to break some base game behaviour** :
+    Now come the **2 annoying scripts** that will **require you to edit bytecode** :
 
     In **gml_Object_o_button_actionkey_Step_1** :
 
-    - replace `if ((!global.consoleEnabled) && (!pressed))` with `if ((!global.consoleEnabled) && (!global.neoconsole_enabled) && (!pressed))`
-    - replace `self.checkActive(x, y)` with `is_active`
+    - Replace
+    ```py
+    :[0]
+    pushglb.v global.consoleEnabled
+    conv.v.b
+    not.b
+    bf [2]
+
+    :[1]
+    push.v self.pressed
+    conv.v.b
+    not.b
+    b [3]
+    ```
+
+    - With
+    ```py
+    :[0]
+    pushglb.v global.consoleEnabled
+    conv.v.b
+    not.b
+    bf [800]
+
+    pushglb.v global.neoconsole_enabled
+    conv.v.b
+    not.b
+    b [801]
+
+    :[800]
+    push.e 0
+
+    :[801]
+    bf [2]
+
+    :[1]
+    push.v self.pressed
+    conv.v.b
+    not.b
+    b [3]
+    ```
 
     ---
 
     In **gml_Object_o_player_Step_0** :
 
-    - Line 241, replace `if (!global.consoleEnabled)` with `if (!global.consoleEnabled && !global.neoconsole_enabled)`
-    - Line 229, remove :
+    - Replace
     ```py
-      with (o_inv_etnarch_mask)
-        self.execute()
+    :[151]
+    pushglb.v global.consoleEnabled
+    conv.v.b
+    not.b
+    bf [209]
+
+    :[152]
+    push.v self.lock_movement
+    conv.v.b
+    not.b
+    bf [209]
+    ```
+    - With
+    ```py
+    :[151]
+    pushglb.v global.consoleEnabled
+    conv.v.b
+    not.b
+    bf [800]
+
+    pushglb.v global.neoconsole_enabled
+    conv.v.b
+    not.b
+    b [801]
+
+    :[800]
+    push.e 0
+
+    :[801]
+    bf [209]
+
+    :[152]
+    push.v self.lock_movement
+    conv.v.b
+    not.b
+    bf [209]
     ```
 
 
@@ -565,9 +630,8 @@ This is because the game checks only if the **original console** is **opened or 
 
 | Issue Number | Priority | Complexity |Description |
 | :---: | :---: | :---: | :--- |
-| 1 | Low | Easy |Right now, there is no script other than `log` and `enable`.</br>Could be nice to add a few. Probably reusing some fron the **original console**. |
+| 1 | Low | Easy |Right now, there is no script other than `log` and `enable`.</br>Could be nice to add a few. Probably reusing some fron the **original console**.</br>The problem is that every script has to be added **manually**.</br>Need to find a way to do this **automatically**. |
 | 2 | Mid | ? |Deleting text in the console is **inconsistent**. Not sure what causes this. |
-| 3 | High | Hard |The way we **isolate inputs** right now is not **standalone**.</br>We need to find a way to edit **broken scripts** like `o_player` Step Event. |
-| 4 | Mid | Easy |`scr_neoconsole_log` only logs the **first argument** to the console.</br>It should take **all the arguments** in `argument0[]` rather than just the first. |
+| 3 | Mid | Easy |`scr_neoconsole_log` only logs the **first argument** to the console.</br>It should take **all the arguments** in `argument0[]` rather than just the first. |
 
 ---
