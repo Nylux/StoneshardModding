@@ -69,6 +69,13 @@ Looping is a boolean, if true the sound will loop.
 e.g. : `audio_play_sound(snd_PlayerDead, 10, false)`
 
 ---
+### place_meeting()
+
+Syntax : `place_meeting(x, y, obj)`
+
+Checks for a collision by moving the instance, moves back and tell you if a collision with obj was found or not.
+
+---
 </br>
 
 ##  **^^Stoneshard Functions^^**
