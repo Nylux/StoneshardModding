@@ -178,6 +178,7 @@ In the long run, I'd like to introduce a **UMT script** to do all this delicate 
         commandsMap = ds_map_create()  #(17)!
         ds_map_add(commandsMap, "log", "scr_neoconsole_log")  
         ds_map_add(commandsMap, "enable", "scr_neoconsole_enable")
+        ds_map_add(commandsMap, "help", "scr_neoconsole_help")
         ```
 
         1. This global variable defines whether the console is currently opened or not.
@@ -256,27 +257,27 @@ In the long run, I'd like to introduce a **UMT script** to do all this delicate 
     
     Finally, add the following **code** to it :
     ```py linenums="1" title="scr_neoconsole_log"
-    function scr_neoconsole_log(argument0)
+    function scr_neoconsole_log()
     {
-    	if (!instance_exists(o_neoconsole))
-    		exit
-    	with(o_neoconsole)
-    	{
-    		for (var i = array_length(text_)-1; i >= 0; i--)
-    		{
-    			text_[i+1] = text_[i]
-    		}
-    
-    		text_[0] = string(argument0)
-    		text_currentline = text_def
-    	}
+        if (!instance_exists(o_neoconsole)) #(1)!
+            return;
+        with (o_neoconsole)
+        {
+            for (var i = (array_length(text_) - 1); i >= 0; i--) #(2)!
+                text_[(i + 1)] = text_[i]
+            text_[0] = "" #(3)!
+            for (i = 0; i < argument_count; i++) #(4)!
+                text_[0] += (string(argument[i]) + " ")
+            text_currentline = text_def #(5)!
+        }
     }
     ```
-    ??? Info "Explanations"
-        - This script logs the argument passed to it in the console.
-        - It does this by making the text already present in the console **go up by one line**, and inserting the passed argument in the text_[] array.
-        - Finally it resets the user input line to the default prompt.
-        - It's run when the ++return++ key is **pressed** while the **console is opened**.
+
+    1. Can't write in the console if it doesn't exist.
+    2. For each line that exists in the console, scroll it up.
+    3. Empty the lowest line of the console (we already have the content in the `argument[]` array)
+    4. For each argument we received (aka each word), we add it to the lowest line.</br>We're essentially logging it to the console.
+    5. Finally we reset the user input line to display the prompt.
 
 ??? abstract "2. Toggling - scr_neoconsole_enable"
     - Create a new script and name it `scr_neoconsole_enable`.
@@ -296,6 +297,60 @@ In the long run, I'd like to introduce a **UMT script** to do all this delicate 
         - This script **toggles** the console on and off.
         - It does this by **inverting** the value of the **global variable** `neoconsole_enabled`.
         - It's run when the **key** defined in `o_neoconsole` **Create Event** is **pressed**.
+
+??? abstract "3. Help - scr_neoconsole_help"
+    - Create a new script and name it `scr_neoconsole_help`.
+    - **Click anywhere** and when prompted click on the `Change all occurences of this value` **button**
+    - **DO NOT RENAME THE CODE ASSET ! EVER !**
+    - Double click on the code or click the `...` button on the far right.
+
+    Finally, add the following **code** to it :
+    ```py linenums="1" title="scr_neoconsole_help"
+    function scr_neoconsole_help() //gml_Script_scr_neoconsole_help  
+    {  
+        if (argument_count > 1)  
+        {  
+            scr_neoconsole_log("Invalid number of arguments.")  
+            return;  
+        }  
+        if (argument[0] == "")  
+        {  
+            scr_neoconsole_log("help [command]")  
+            scr_neoconsole_log("log [message]")  
+            scr_neoconsole_log("enable")  
+        }  
+        else  
+        {  
+            switch argument[0]  
+            {  
+                case "help":  
+                    scr_neoconsole_log("help [command]")  
+                    scr_neoconsole_log("Shows a command's usage if one is supplied.")  
+                    scr_neoconsole_log("Otherwise, shows a list of all console commands.")  
+                    scr_neoconsole_log("Arguments :")  
+                    scr_neoconsole_log("command : optional, the command you want to know more about.")  
+                    scr_neoconsole_log("")  
+                    break  
+                case "log":  
+                    scr_neoconsole_log("log [message]")  
+                    scr_neoconsole_log("Logs message to the console.")  
+                    scr_neoconsole_log("Arguments :")  
+                    scr_neoconsole_log("message : the message to log.")  
+                    scr_neoconsole_log("")  
+                    break  
+                case "enable":  
+                    scr_neoconsole_log("enable")  
+                    scr_neoconsole_log("Toggles the console on or off.")  
+                    scr_neoconsole_log("")  
+                    break  
+                default:  
+                    scr_neoconsole_log("Invalid command name.")  
+                    break  
+            }  
+    
+        }  
+    }
+    ```
 
 ??? Info "Reminder - commandsMap"
     If you added any **non-standard script**, make sure to also add them to the **commandsMap** in `o_neoconsole` **Create Event** !  
@@ -630,8 +685,6 @@ This is because the game checks only if the **original console** is **opened or 
 
 | Issue Number | Priority | Complexity |Description |
 | :---: | :---: | :---: | :--- |
-| 1 | Low | Easy |Right now, there is no script other than `log` and `enable`.</br>Could be nice to add a few. Probably reusing some fron the **original console**.</br>The problem is that every script has to be added **manually**.</br>Need to find a way to do this **automatically**. |
+| 1 | Low | Easy |Right now, there is no script other than `log`, `enable` and `help`.</br>Could be nice to add a few. Probably reusing some fron the **original console**.</br>The problem is that every script has to be added **manually**.</br>Need to find a way to do this **automatically**. |
 | 2 | Mid | ? |Deleting text in the console is **inconsistent**. Not sure what causes this. |
-| 3 | Mid | Easy |`scr_neoconsole_log` only logs the **first argument** to the console.</br>It should take **all the arguments** in `argument0[]` rather than just the first. |
-
----
+| 3 | Low | Easy | The `log` **command** currently only supports writing with the **default color**.</br>Should add a way to write with **any**.
