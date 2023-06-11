@@ -37,6 +37,35 @@ In the long run, I'd like to introduce a **UMT script** to do all this delicate 
 
 ---
 
+### **Scripts (Commands)**
+
+???+ Warning
+    Due to **limitations with UMT**, currently, **^^creating the scripts before anything that may call them is critically important^^**.  
+    As such, it's **strongly recommended** to **^^import every single script FIRST^^**, and **only then** implementing the **scripts** or **gameobjects** that **call them**.
+
+    If you don't, and for example you create the `o_neoconsole` Step Event **BEFORE** creating the `scr_neoconsole_log` script, **UMT will be confused** and wi**ll not find it**, which will **^^prevent the game from starting^^**.
+
+??? abstract "Importing the scripts"
+    Importing the scripts is pretty straightforward :
+
+    - Download the **.zip file** below.
+    - **Extract** it anywhere.
+    - Use the `Scripts > Resources Repackers > ImportGML.csx` script in UMT for **^^each of the folders^^**.
+    - Make sure to import them **in order** (Core, Required, Base, Post) or else you will **run into issues**.
+
+    ---
+
+    [NeoConsoleScripts.zip :octicons-download-16:](../downloads/NeoConsoleScripts.zip){ .md-button .md-button--primary}&emsp;:octicons-tag-24: **Version 9.3 - [11/6/2023]**
+
+
+??? Info "Reminder - commandsMap"
+    If you added any **non-standard script**, make sure to also add them to the **commandsMap** in `scr_neoconsole_init` !  
+    Otherwise, they won't be **accessible** through the console.
+
+    It may also be a good idea to add an entry to the **help command** there to indicate **how to use it** !
+
+---
+
 ### **Core Console**
 
 ??? abstract "1. Adding `o_neoconsole`"
@@ -149,36 +178,34 @@ In the long run, I'd like to introduce a **UMT script** to do all this delicate 
     Add a `Create` **event** for `o_neoconsole` and add the following **code** to it :
     ??? note "Code"
         ```py linenums="1" title="o_neoconsole - Create Event"
-        global.neoconsole_enabled = false  #(1)!
-        global.neoconsole_toggle_key = vk_f2  #(2)!
-
-        text_ = ""  
-        text_def = ">  " #(3)!
+        global.neoconsole_enabled = 0 #(1)!
+        global.neoconsole_toggle_key = vk_f2 #(2)!
+        text_ = ""
+        text_def = ">. " #(3)!
         text_[0] = ""
         text_currentline = text_def #(4)!
         erase = -1
-
+        lastcommand = ""
         cursor = "|" #(5)!
         cursor_blink_delay = 15 #(6)!
         alarm[0] = cursor_blink_delay
-
         font = f_dmg_eu #(7)!
         hsize = window_get_width() #(8)!
-        vsize = 360 #(9)!
-
+        vsize = window_get_height() #(9)!
         text_background_color = c_black #(10)!
-        text_background_alpha = 0.8 #(11)!
+        text_background_alpha = 0.6 #(11)!
         text_primary_color = c_white #(12)!
         text_primary_alpha = 0.9 #(13)!
-
         text_line_color = c_white #(14)!
-        text_line_alpha = 0.9 #(15)!
+        text_line_alpha = 0.6 #(15)!
         text_line_background = c_black #(16)!
-
-        commandsMap = ds_map_create()  #(17)!
-        ds_map_add(commandsMap, "log", "scr_neoconsole_log")  
-        ds_map_add(commandsMap, "enable", "scr_neoconsole_enable")
-        ds_map_add(commandsMap, "help", "scr_neoconsole_help")
+        commandsMap = ds_map_create()
+        helpSyntaxMap = ds_map_create()
+        helpUsageMap = ds_map_create()
+        scr_neoconsole_init() #(17)!
+        scr_neoconsole_log("NeoConsole : " + string(ds_map_size(commandsMap)) + " scripts loaded.")
+        scr_neoconsole_log("NeoConsole : " + string(ds_map_size(helpUsageMap)) + " helps loaded.")
+        scr_neoconsole_log("NeoConsole : Made with a lot of pain by Nylux")
         ```
 
         1. This global variable defines whether the console is currently opened or not.
@@ -197,7 +224,7 @@ In the long run, I'd like to introduce a **UMT script** to do all this delicate 
         14. Text color in your input line.
         15. Opacity of your input line's background.
         16. Background color of your input line.
-        17. ds_map that contains the short name for each command script.</br>If you want to add new scripts, you will have to add them to commandsMap.
+        17. Function that contains the shortname for all the commands as well as their documentation for the help command.
 
     ??? Info "Explanations"
         This documentation uses **annotations** to provide **line per line descriptions**.  
@@ -213,12 +240,17 @@ In the long run, I'd like to introduce a **UMT script** to do all this delicate 
     ```py linenums="1" title="o_neoconsole - Destroy Event"
     ds_map_destroy(commandsMap) #(1)!
     commandsMap = -1
+    ds_map_destroy(helpSyntaxMap) #(3)!
+    helpSyntax = -1
+    ds_map_destroy(helpUsageMap) #(4)!
+    helpUsageMap = -1
     global.neoconsole_enabled = 0 #(2)!
-
     ```
 
     1. Destroys the ds_map holding the shortnames for scripts since we don't need it if the console is destroyed.
     2. Disabling the global variable as the console can't be opened if it's destroyed.
+    3. Destroys the ds_map holding the syntax help for scripts since we don't need it if the console is destroyed.
+    4. Destroys the ds_map holding the usage help for scripts since we don't need it if the console is destroyed.
 
 ??? abstract "6. Adding Alarm 0 Event in `o_neoconsole`"
     Add a `Alarm 0` **event** for `o_neoconsole` and add the following **code** to it :
@@ -238,123 +270,6 @@ In the long run, I'd like to introduce a **UMT script** to do all this delicate 
     ??? Info "Explanations"
         This is the code responsible for **blinking** the console's cursor.  
         If you want to **change** what your cursor **looks like**, this is the place to do it.
-
----
-
-### **Scripts (Commands)**
-
-???+ Warning
-    Due to **limitations with UMT**, currently, **^^creating the scripts before anything that may call them is critically important^^**.  
-    As such, it's **strongly recommended** to **^^write every single script FIRST^^**, and **only then** implementing the **scripts** or **gameobjects** that **call them**.
-
-    If you don't, and for example you create the `o_neoconsole` Step Event **BEFORE** creating the `scr_neoconsole_log` script, **UMT will be confused** and wi**ll not find it**, which will **^^prevent the game from starting^^**.
-
-??? abstract "1. Logging - scr_neoconsole_log"
-    - Create a new script and name it `scr_neoconsole_log`.
-    - **Click anywhere** and when prompted click on the `Change all occurences of this value` **button**.
-    - **DO NOT RENAME THE CODE ASSET ! EVER !**
-    - Double click on the code or click the `...` button on the far right.
-    
-    Finally, add the following **code** to it :
-    ```py linenums="1" title="scr_neoconsole_log"
-    function scr_neoconsole_log()
-    {
-        if (!instance_exists(o_neoconsole)) #(1)!
-            return;
-        with (o_neoconsole)
-        {
-            for (var i = (array_length(text_) - 1); i >= 0; i--) #(2)!
-                text_[(i + 1)] = text_[i]
-            text_[0] = "" #(3)!
-            for (i = 0; i < argument_count; i++) #(4)!
-                text_[0] += (string(argument[i]) + " ")
-            text_currentline = text_def #(5)!
-        }
-    }
-    ```
-
-    1. Can't write in the console if it doesn't exist.
-    2. For each line that exists in the console, scroll it up.
-    3. Empty the lowest line of the console (we already have the content in the `argument[]` array)
-    4. For each argument we received (aka each word), we add it to the lowest line.</br>We're essentially logging it to the console.
-    5. Finally we reset the user input line to display the prompt.
-
-??? abstract "2. Toggling - scr_neoconsole_enable"
-    - Create a new script and name it `scr_neoconsole_enable`.
-    - **Click anywhere** and when prompted click on the `Change all occurences of this value` **button**.
-    - **DO NOT RENAME THE CODE ASSET ! EVER !**
-    - Double click on the code or click the `...` button on the far right.
-    
-    Finally, add the following **code** to it :
-    ```py linenums="1" title="scr_neoconsole_enable"
-    function scr_neoconsole_enable()
-    {
-	    if (instance_exists(o_neoconsole))
-		    global.neoconsole_enabled = !global.neoconsole_enabled
-    }
-    ```
-    ??? Info "Explanations"
-        - This script **toggles** the console on and off.
-        - It does this by **inverting** the value of the **global variable** `neoconsole_enabled`.
-        - It's run when the **key** defined in `o_neoconsole` **Create Event** is **pressed**.
-
-??? abstract "3. Help - scr_neoconsole_help"
-    - Create a new script and name it `scr_neoconsole_help`.
-    - **Click anywhere** and when prompted click on the `Change all occurences of this value` **button**
-    - **DO NOT RENAME THE CODE ASSET ! EVER !**
-    - Double click on the code or click the `...` button on the far right.
-
-    Finally, add the following **code** to it :
-    ```py linenums="1" title="scr_neoconsole_help"
-    function scr_neoconsole_help() //gml_Script_scr_neoconsole_help  
-    {  
-        if (argument_count > 1)  
-        {  
-            scr_neoconsole_log("Invalid number of arguments.")  
-            return;  
-        }  
-        if (argument[0] == "")  
-        {  
-            scr_neoconsole_log("help [command]")  
-            scr_neoconsole_log("log [message]")  
-            scr_neoconsole_log("enable")  
-        }  
-        else  
-        {  
-            switch argument[0]  
-            {  
-                case "help":  
-                    scr_neoconsole_log("help [command]")  
-                    scr_neoconsole_log("Shows a command's usage if one is supplied.")  
-                    scr_neoconsole_log("Otherwise, shows a list of all console commands.")  
-                    scr_neoconsole_log("Arguments :")  
-                    scr_neoconsole_log("command : optional, the command you want to know more about.")  
-                    scr_neoconsole_log("")  
-                    break  
-                case "log":  
-                    scr_neoconsole_log("log [message]")  
-                    scr_neoconsole_log("Logs message to the console.")  
-                    scr_neoconsole_log("Arguments :")  
-                    scr_neoconsole_log("message : the message to log.")  
-                    scr_neoconsole_log("")  
-                    break  
-                case "enable":  
-                    scr_neoconsole_log("enable")  
-                    scr_neoconsole_log("Toggles the console on or off.")  
-                    scr_neoconsole_log("")  
-                    break  
-                default:  
-                    scr_neoconsole_log("Invalid command name.")  
-                    break  
-            }  
-    
-        }  
-    }
-    ```
-
-??? Info "Reminder - commandsMap"
-    If you added any **non-standard script**, make sure to also add them to the **commandsMap** in `o_neoconsole` **Create Event** !  
-    Otherwise, they won't be **accessible** through the console.
 
 ---
 
@@ -381,6 +296,8 @@ In the long run, I'd like to introduce a **UMT script** to do all this delicate 
         	else
         		erase++
         }
+        if keyboard_check(vk_up) #(12)!
+            text_currentline = lastcommand
 
         var command = ""
         var arg
@@ -389,6 +306,7 @@ In the long run, I'd like to introduce a **UMT script** to do all this delicate 
 
         if (keyboard_check_released(vk_enter) && string_length(text_currentline) > string_length(text_def)) #(5)!
         {
+            lastcommand = text_currentline
         	text_currentline = text_currentline + " " #(6)!
         	var word = ""
 
@@ -472,6 +390,7 @@ In the long run, I'd like to introduce a **UMT script** to do all this delicate 
         9. If the command was found, we run it here.
         10. The list of all the keys we don't want to be interpreted as text input in the console.
         11. If the character the user inputted isn't part of the exception list, we add it to current_line.
+        12. If the arrow up key is pressed, we replace the current line with whatever command was typed last.
 
 ??? abstract "2. Adding DrawGUI Event in `o_neoconsole`"
     Add a `DrawGUI` **event** for `o_neoconsole` and add the following **code** to it :
@@ -685,6 +604,9 @@ This is because the game checks only if the **original console** is **opened or 
 
 | Issue Number | Priority | Complexity |Description |
 | :---: | :---: | :---: | :--- |
-| 1 | Low | Easy |Right now, there is no script other than `log`, `enable` and `help`.</br>Could be nice to add a few. Probably reusing some fron the **original console**.</br>The problem is that every script has to be added **manually**.</br>Need to find a way to do this **automatically**. |
-| 2 | Mid | ? |Deleting text in the console is **inconsistent**. Not sure what causes this. |
-| 3 | Low | Easy | The `log` **command** currently only supports writing with the **default color**.</br>Should add a way to write with **any**.
+| 1 | Mid | ? | Deleting text in the console is **inconsistent**. Not sure what causes this. |
+| 2 | Low | Hard | The `log` **command** currently only supports writing with the **default color**.</br>Should add a way to write with **any**.</br>Will require **rewriting** the entire **rendering** side of the console.
+| 3 | High | Hard | There is no **scrolling feature** for the console, the help command **can't be displayed completely** because of this.
+| 4 | Low | Medium | **Importing scripts** has gotten better, but it still **takes time and isn't very convenient**.</br>Need to write a **.csx script** to **import** them in a **given order**.
+| 5 | Low | Hard | Some of the **modifications** are slow and painful, it would need to be **fully automated with a .csx script**.
+| 6 | Low | Medium | Some scripts **don't work** and need to be **fixed**.
