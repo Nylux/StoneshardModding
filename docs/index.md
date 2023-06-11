@@ -24,7 +24,7 @@ Looking to **contribute** ? Contact one of the maintainers about it on **Discord
 
 | Name | Maintainer| Socials |
 |-|:-:|:-|
-| Nylux | :white_check_mark: | `Nylux#6667` :fontawesome-brands-discord: |
+| Nylux | :white_check_mark: | `.nylux` :fontawesome-brands-discord: |
 | remyCases | :x: | `zizani#4544` :fontawesome-brands-discord: &emsp; [`remyCases` :material-github:](https://github.com/remyCases)|
 | ...| ...| ...|
 
