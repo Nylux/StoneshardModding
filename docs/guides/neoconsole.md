@@ -21,10 +21,10 @@
 
 NeoConsole is an **ongoing project** that is attempting to create a new **developer console** from scratch.
 
-The project is still at a **very early stage**, and the current goal is to get a **barebone console up and running** without having to alter the game's behaviour in any way.
+The project is still at an **early stage**, and the current goal is to get a **working console up and running** without having to alter the game's behaviour in any way.
 
-The current state of **NeoConsole** is a **barebone console** with absolutely **no useful script to run** as well as **various issues**.  
-If you expect **feature parity** with the original console, you will be **disapointed**.
+The current state of **NeoConsole** is a **working console** with a **multitude of scripts** as well as **various issues**.  
+We are still **missing features** the **original developer console** had, but we're **getting there**.
 
 ---
 
