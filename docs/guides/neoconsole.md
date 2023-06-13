@@ -123,7 +123,7 @@ In the long run, I'd like to introduce a **UMT script** to do all this delicate 
         }
         ```
 
-    ???+ Info "Explanations"
+    ??? Info "Explanations"
         - The code we're adding in `sessionDataInit` creates the `o_neoconsole` **gameobject** if it doesn't exist already.
         - It's run when a **save is loaded** or when a **new game is started** by the player.
         - This is the **only way** the **console** is **spawned** into the world.
@@ -174,7 +174,192 @@ In the long run, I'd like to introduce a **UMT script** to do all this delicate 
         - This code **destroys** the **console** when run.
         - It's mainly **called** when **going back** to the **main menu**.
 
-??? abstract "4. Adding Create Event in `o_neoconsole`"
+
+??? abstract "4. Registering in `dataLoader`"
+    Find `gml_Object_o_dataLoader_Other_10` in UMT and add the following **highlighted code** to it :
+    ??? note "Code"
+        ```py linenums="1" hl_lines="8" title="gml_Object_o_dataLoader_Other_10"
+        global.bodypart = "random"
+        global.campPresset = -4
+        global.dungeon_controller = -4
+        global.Upspeed = 0
+        global.TurnDelay = 13
+        global.globalMapInit = 0
+        global.consoleEnabled = 0
+        global.neoconsole_enabled = 0
+        scr_slotsInit()
+        scr_ds_init()
+        scr_colorTextColorsMap(1)
+        scr_skill_tier_init()
+        scr_dayNightInit()
+        scr_waterSpritesCacheInit()
+        global.settingsMenuTab = 4394
+        global.settingsMenuRecreate = 0
+        global.saveErrorText = "N/A"
+        global.skipTimeHours = -4
+        global.skipTimeHungerChange = 0
+        global.terrainGrid = -4
+        global.fog = 1
+        global.skill_can_cast = 1
+        global.prologueTransition = 0
+        global.permadeathMode = 0
+        global.mainMenuRoom = 6
+        global.credits_music = -4
+        global.classesMap = __dsDebuggerMapCreate()
+        scr_classCreate(o_verren, s_verren, "Verren", "Male", "HumanAldor", "RelicSeeker", 10, 10, 10, 10, 10, [global.pyromancy_tier1, global.pyromancy_tier2, global.geomancy_tier1, global.geomancy_tier2, global.electromancy_tier1, global.electromancy_tier2, global.swords_tier1, global.swords_tier2, global.maces_tier1, global.maces_tier2, global.daggers_tier1, global.daggers_tier2, global.swords2h_tier1, global.swords2h_tier2, global.shields_tier1, global.shields_tier2, global.staves_tier1, global.staves_tier2, global.bows_tier1, global.bows_tier2, global.axes_tier1, global.axes_tier2, global.combat_tier1, global.combat_tier2, global.athletics_tier1, global.athletics_tier2, global.polearms_tier1, global.polearms_tier2, global.dualwield_tier1, global.dualwield_tier2, global.greataxes_tier1, global.greataxes_tier2, global.greatmaces_tier1, global.greatmaces_tier2, global.armor_tier1, global.armor_tier2], [4335])
+        scr_classCreate(o_revenger, s_Velmir, "Velmir", "Male", "HumanSkadia", "Revenger", 11, 11, 11, 10, 10, [global.polearms_tier1, global.greataxes_tier1, global.greatmaces_tier1, global.bows_tier1, global.athletics_tier1, global.combat_tier1], [4337])
+        scr_classCreate(o_reaver, s_Jorgrim, "Jorgrim", "Male", "Dwarf", "Reaver", 11, 10, 11, 11, 10, [global.swords_tier1, global.axes_tier1, global.maces_tier1, global.greataxes_tier1, global.dualwield_tier1, global.combat_tier1], [4330])
+        scr_classCreate(o_knight_maiden, s_ArnaDerVyrne, "Arna", "Female", "HumanAldor", "KnightMaiden", 11, 11, 10, 11, 10, [global.swords_tier1, global.swords2h_tier1, global.greatmaces_tier1, global.shields_tier1, global.armor_tier1, global.combat_tier1], [4331])
+        scr_classCreate(o_woodward, s_Dirwin, "Dirwin", "Male", "HumanAldor", "Woodward", 10, 11, 11, 11, 10, [global.daggers_tier1, global.axes_tier1, global.greataxes_tier1, global.staves_tier1, global.bows_tier1, global.athletics_tier1], [4332])
+        scr_classCreate(o_runaway_wizzard, s_Jonna, "Jonna", "Female", "HumanAldor", "RunawaySorceress", 10, 10, 11, 11, 11, [global.staves_tier1, global.pyromancy_tier1, global.geomancy_tier1, global.electromancy_tier1, global.magic_mastery_tier1, global.athletics_tier1], [4333])
+        global.player_class = -4
+        global.Osbrook = [4, 4]
+        global.OsbrookTavernSleepIsOpen = 0
+        global.is_load_game = 0
+        global.is_devinfo = 0
+        global.spriteOriginEditor = 0
+        global.npc_animation_mode = 0
+        global.skill_test = 0
+        global.sightPlacelistEditor = 0
+        global.devCamera = 0
+        global.devCameraSpeed = 2
+        global.is_teleporting = 0
+        global.is_nocd = 0
+        global.gridInfo = 0
+        global.gridPosInfo = 0
+        global.weatherInfo = 0
+        global.fadeInfo = 0
+        global.HP = -1
+        global.MP = -1
+        global.audiodebug = 0
+        global.enemyinfo = 0
+        global.RecivedDamage = 0
+        global.AllDamage = 0
+        global.position_tag = "NA"
+        global.presset_map = __dsDebuggerMapCreate()
+        global.timeScale = 1
+        global.attack_mode_on = 0
+        global.skill_select = 0
+        global.skill_activate = 0
+        global.transition_done = 0
+        global.transition_scale = 1
+        global.globalmaptest = 0
+        global.playerGodMode = 0
+        global.playerNoDeathMode = 0
+        global.playerNoPain = 0
+        global.in_steam = 1
+        global.steam_api = 1
+        global.steem_screenshot_counter = 0
+        global.read_diary[2] = 0
+        global.read_diary[3] = 0
+        global.read_diary[4] = 0
+        global.read_diary[5] = 0
+        global.read_diary[6] = 0
+        global.bad_luck[0] = 0
+        global.bad_luck[1] = 0
+        global.bad_luck[2] = 0
+        global.bad_luck[3] = 0
+        global.bad_luck[4] = 0
+        global.bad_luck[5] = 0
+        global.bad_luck[6] = 0
+        global.bad_luck[7] = 0
+        global.magalomania_value = 0
+        global.target = -4
+        global.checkpoint = room
+        global.cryptchance = 0
+        global.localX = 0
+        global.localY = 0
+        global.UI_is_on = 1
+        global.checkpoint = 5
+        global.inv_select = 0
+        global.scrollbar_drag = 0
+        global.gen_wall = __dsDebuggerListCreate()
+        global.roompoint = 0
+        audio_falloff_set_model(4)
+        global.hunger_count = 0
+        global.thirsty_count = 0
+        global.GFX = 0
+        if shaders_are_supported()
+        {
+            if shader_is_compiled(sh_whiteblend)
+                global.GFX = 1
+        }
+        global.miniboss_type = scr_tableLoad(gml_Script_table_Miniboss_type)
+        init_damage_material_constatns()
+        global.inst_snd = -4
+        global.choir_snd = -4
+        global.crypts = __dsDebuggerListCreate()
+        global.agred_enemy_list = __dsDebuggerListCreate()
+        global.main_part = part_system_create()
+        global.dustpart = part_type_create()
+        global.whitepart = part_type_create()
+        part_type_sprite(global.whitepart, 1607, 0, 1, 1)
+        part_type_size(global.whitepart, 0.5, 1, 0.05, 0)
+        part_type_scale(global.whitepart, 1, 1)
+        part_type_orientation(global.whitepart, 0, 77, 0, 0, 0)
+        part_type_color3(global.whitepart, 6911105, 4212565, 4010044)
+        part_type_alpha3(global.whitepart, 0.62, 0.36, 0)
+        part_type_blend(global.whitepart, 0)
+        part_type_life(global.whitepart, 10, 25)
+        part_type_speed(global.whitepart, 1, 1, 0, 1)
+        part_type_direction(global.whitepart, -46, 143, 0, 0)
+        part_type_gravity(global.whitepart, 0, 0)
+        part_type_sprite(global.dustpart, 1616, 0, 1, 1)
+        part_type_size(global.dustpart, 1, 1, 0, 0)
+        part_type_alpha3(global.dustpart, 0, 0.5, 0)
+        part_type_speed(global.dustpart, 0.1, 0.5, 0, 0)
+        part_type_gravity(global.dustpart, 0, 0)
+        part_type_direction(global.dustpart, 0, 359, 0, 0)
+        part_type_orientation(global.dustpart, 0, 0, 0, 0, 0)
+        part_type_colour1(global.dustpart, make_colour_rgb(255, 235, 172))
+        part_type_life(global.dustpart, 40, 100)
+        part_system_depth(global.main_part, -3000)
+        global.pt_steam = part_type_create()
+        part_type_shape(global.pt_steam, 0)
+        part_type_sprite(global.pt_steam, 1632, 1, 0, 0)
+        part_type_size(global.pt_steam, 1, 1, 0.15, 0)
+        part_type_scale(global.pt_steam, 0.08, 0.08)
+        part_type_orientation(global.pt_steam, 0, 0, 0, 0, 0)
+        part_type_color3(global.pt_steam, 14868188, 16777215, 16777215)
+        part_type_alpha3(global.pt_steam, 0.41, 0, 0)
+        part_type_blend(global.pt_steam, 0)
+        part_type_life(global.pt_steam, 25, 40)
+        part_type_speed(global.pt_steam, 0.2, 1, 0, 0)
+        part_type_direction(global.pt_steam, 149, 184, 0, 0)
+        part_type_gravity(global.pt_steam, 0, 0)
+        global.campsmoke = part_system_create()
+        part_system_depth(global.campsmoke, -3000)
+        global.pt_CampfireSmoke = part_type_create()
+        part_type_shape(global.pt_CampfireSmoke, 10)
+        part_type_sprite(global.pt_CampfireSmoke, 1633, 0, 0, 0)
+        part_type_size(global.pt_CampfireSmoke, 0.01, 0.3, 0.01, 0)
+        part_type_scale(global.pt_CampfireSmoke, 1, 1)
+        part_type_orientation(global.pt_CampfireSmoke, 90, 107, 0, 0, 0)
+        part_type_color3(global.pt_CampfireSmoke, 5863078, 6716795, 5592405)
+        part_type_alpha3(global.pt_CampfireSmoke, 0.78, 0.21, 0)
+        part_type_blend(global.pt_CampfireSmoke, 0)
+        part_type_life(global.pt_CampfireSmoke, 80, 80)
+        part_type_speed(global.pt_CampfireSmoke, 0.03, 1, 0, 0)
+        part_type_direction(global.pt_CampfireSmoke, 100, 100, 0, 0)
+        part_type_gravity(global.pt_CampfireSmoke, 0.04, 125)
+        global.smokeParticleSystem = part_system_create()
+        part_system_depth(global.smokeParticleSystem, -3000)
+        global.smokeParticle = part_type_create()
+        part_type_sprite(global.smokeParticle, 1642, 0, 0, 1)
+        part_type_orientation(global.smokeParticle, 0, 0, 0.15, 0, 0)
+        part_type_alpha3(global.smokeParticle, 0, 0.3, 0)
+        part_type_blend(global.smokeParticle, 0)
+        part_type_life(global.smokeParticle, room_speed, (room_speed * 4))
+        part_type_speed(global.smokeParticle, 0, 0, 0, 0)
+        part_type_direction(global.smokeParticle, 0, 360, 0, 0)
+        part_type_gravity(global.smokeParticle, 0, 0)
+        instance_destroy()
+        ```
+    ??? Info "Explanations"
+        - This code **initializes** the **console's global variables** when run.
+        - It's called when you load **load the game**.
+
+??? abstract "5. Adding Create Event in `o_neoconsole`"
     Add a `Create` **event** for `o_neoconsole` and add the following **code** to it :
     ??? note "Code"
         ```py linenums="1" title="o_neoconsole - Create Event"
@@ -235,7 +420,7 @@ In the long run, I'd like to introduce a **UMT script** to do all this delicate 
         Feel free to **modify** some of these **values** !  
         They're mostly used for **styling** so you should be fine.
         
-??? abstract "5. Adding Destroy Event in `o_neoconsole`"
+??? abstract "6. Adding Destroy Event in `o_neoconsole`"
     Add a `Destroy` **event** for `o_neoconsole` and add the following **code** to it :
     ```py linenums="1" title="o_neoconsole - Destroy Event"
     ds_map_destroy(commandsMap) #(1)!
@@ -252,7 +437,7 @@ In the long run, I'd like to introduce a **UMT script** to do all this delicate 
     3. Destroys the ds_map holding the syntax help for scripts since we don't need it if the console is destroyed.
     4. Destroys the ds_map holding the usage help for scripts since we don't need it if the console is destroyed.
 
-??? abstract "6. Adding Alarm 0 Event in `o_neoconsole`"
+??? abstract "7. Adding Alarm 0 Event in `o_neoconsole`"
     Add a `Alarm 0` **event** for `o_neoconsole` and add the following **code** to it :
 
     ```py linenums="1" title="o_neoconsole - Alarm 0 Event"
