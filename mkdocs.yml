@@ -85,6 +85,7 @@ nav:
       - "HGPatcher": "tools/hgpatcher.md"
       - "GML to CSV Converter": "tools/gmltocsv.md"
       - "DeltaPatcher": "tools/deltapatcher.md"
+      - "Dialogue Editor 2": "tools/dialogue-editor.md"
   - Guides:
       - "Getting Started": "guides/getting-started.md"
       - "Bigger Backpacks": "guides/bigger-backpacks.md"
