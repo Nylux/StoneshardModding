@@ -3,12 +3,11 @@
 ## Description
 
 An essential part of any **dialogue** is its **structure** : which **line** is shown and what **choices** it leads to.  
-You could call that the **dialogue's structure**.
 
 In Stoneshard, though **individual lines** are stored in the **data.win** file, the overarching **dialogue structure** is not.  
 Instead, these are stored in **.de2 files** located in the `dialogs` folder.
 
-These are made with the **Dialogue Editor 2** extension for **Gamemaker Studio 1.4**.
+These are made with the **Dialogue Editor 2** extension for **Gamemaker Studio 1.4**.  
 Thankfully, there is a **program** we can use to read, edit or create our own **dialogues**.
 
 ---
