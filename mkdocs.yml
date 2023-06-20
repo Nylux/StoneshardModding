@@ -90,6 +90,7 @@ nav:
       - "Getting Started": "guides/getting-started.md"
       - "Bigger Backpacks": "guides/bigger-backpacks.md"
       - "Adding new Sprites": "guides/adding-new-sprites.md"
+      - "Adding Basic Dialogue": "guides/adding-new-dialogue.md"
       - "Working with Tables": "guides/working-with-tables.md"
       - "NeoConsole": "guides/neoconsole.md"
   - References:

@@ -8,7 +8,7 @@ In Stoneshard, though **individual lines** are stored in the **data.win** file, 
 Instead, these are stored in **.de2 files** located in the `dialogs` folder.
 
 These are made with the **Dialogue Editor 2** extension for **Gamemaker Studio 1.4**.  
-Thankfully, there is a **program** we can use to read, edit or create our own **dialogues**.
+Thankfully, there is a **program** we can use to read, edit or create our own **dialogues ^^without needing to use Gamemaker Studio^^**.
 
 ---
 
@@ -22,8 +22,21 @@ You can grab the **Dialogue Editor 2** extension (which includes the program) fr
 
 ## Usage
 
-!!! info "WIP"
-    Come back later !
+From the **download** above, the only thing we really need is the `DE2.exe` file.  
+It's located in `Assets > datafiles`.
+
+Simply **run the program**.  
+You'll now be able to **create** or **edit** any of the `.de2` **dialogue files** located in the `dialogs` folder in your **game installation directory**.
+
+### Controls
+
+| Key | Description |
+| :---: | :--- |
+| ++mbutton++ | Move around the canvas. |
+| ++rbutton++ | Create a new topic. |
+| ++lbutton++ | Select topic(s). |
+| ++control+s++ | Save dialogue. |
+| ++delete++ | Delete selected topic. |
 
 ---
 
