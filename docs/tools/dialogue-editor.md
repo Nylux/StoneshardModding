@@ -42,8 +42,7 @@ You'll now be able to **create** or **edit** any of the `.de2` **dialogue files*
 
 ## Relevant Guides
 
-!!! info "WIP"
-    Come back later !
+- [Adding Basic Dialogues](../guides/adding-new-dialogue.md)
 
 ---
 

@@ -4,7 +4,7 @@
 
 ## Description
 This guide's objective is to add a **simple dialogue** with the **DE2 system**.  
-We will **add dialogue** to a **newly created NPC** to demonstrate the **basic usage** of the **Dialogue Editor 2 Tool**.
+We will **add dialogue** to a **newly created NPC** to demonstrate the **basic usage** of the [Dialogue Editor 2 Tool](../tools/dialogue-editor.md).
 
 ---
 
@@ -69,7 +69,7 @@ Let's implement one.
 ## Creating the Dialogue Structure
 Now that we have an **NPC** set up, let's **prepare our dialogue**.
 ??? abstract "1. Create a new topic"
-    - Open `DE2.exe`.  
+    - Open [DE2.exe](../tools/dialogue-editor.md).  
     - **Right click** anywhere on the **canvas** to create a **new topic**.
     - You can **rename** it if you want to, but you will need to **reflect that change** in `o_npc_tutorial` **Create Event**.
 
