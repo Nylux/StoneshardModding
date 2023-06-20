@@ -2,13 +2,6 @@
 
 :octicons-tag-24: **0.8.1.11**
 
-
-!!! Warning
-    This guide is currently **incomplete**.  
-    The content showed here is **very likely to change** or **contain errors** or **mistakes**.
-
-    If you know **important things** that aren't mentionned but would **fit this guide**, feel free to submit a **pull request** or to **contact** any of the [maintainers](../index.md#contributors).
-
 ## Description
 This guide's objective is to add a **simple dialogue** with the **DE2 system**.  
 We will **add dialogue** to a **newly created NPC** to demonstrate the **basic usage** of the **Dialogue Editor 2 Tool**.
