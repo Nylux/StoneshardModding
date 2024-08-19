@@ -119,7 +119,7 @@ For your first mod we're going to add a quicksave feature to the game when you p
     - Double click on `gml_Object_o_player_KeyPress_116`. This should open an empty code editor.
     - Let's add the following code to it :  
     ```
-    scr_smoothAutoSave()
+    scr_smoothSaveAuto()
     scr_actionsLogUpdate("Game Saved !")
     ```
 
